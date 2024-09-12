@@ -27,7 +27,7 @@ def main():
             match option:
                 case '1':
                     query = diccionario_consultas.consultas['usuarios conectados, IP y consulta']
-                    ejecutar_consulta(connection, query)
+                    ejecutar_consulta.ejecutar_consulta(connection, query)
         connection.close()
         print("Conexión cerrada.")
 
