@@ -1,16 +1,17 @@
 import psycopg2
-import conexion_bdd
-import ejecutar_consulta
-import diccionario_consultas
+import conexion_bdd as con
+import ejecutar_consulta as eje
+import diccionario_consultas as dic
 
 from psycopg2 import sql
 
 def main():
-    connection = conexion_bdd.conexion_bdd()
+    connection = con.conexion_bdd()
     if connection:
-        print("Conexión exitosa a la base de datos.")
+        print("----------Conexión exitosa a la base de datos.")
+
         while True:
-            print("-------------------------")
+            print("")
             print("---MENU CONSULTAS---")
             print("1- Obtener los usuarios conectados, IP y consulta.")
             print("2- Obtener el tamaño de la base de datos del servidor.")
@@ -23,11 +24,31 @@ def main():
             option = input("Escribe la opcion: (o 'salir' para terminar): ")
             if option.lower() == 'salir':
                 break
-            #ejecutar_consulta(connection, query)
+
             match option:
                 case '1':
-                    query = diccionario_consultas.consultas['usuarios conectados, IP y consulta']
-                    ejecutar_consulta.ejecutar_consulta(connection, query)
+                    query = dic.consultas['usuarios conectados, IP y consulta']
+                    eje.ejecutar_consulta(connection, query)
+                case '2':
+                    query = dic.consultas['tamaño de base de datos']
+                    eje.ejecutar_consulta(connection, query)
+                case '3':
+                    tabla = input("Introduzca el nombre de la tabla: ")
+                    query = dic.consultas['tamaño de una tabla']
+                    eje.ejecutar_consulta(connection, query.format(tabla))
+                case '4':
+                    tabla = input("Introduzca el nombre de la tabla: ")
+                    query = dic.consultas['detalles de la tabla']
+                    eje.ejecutar_consulta(connection, query.format(tabla))
+                case '5':
+                    query = dic.consultas['tamaño de las tablas de un esquema']
+                    eje.ejecutar_consulta(connection, query)         
+                case '6':
+                    query = dic.consultas['listado detallado de la bdd']
+                    eje.ejecutar_consulta(connection, query)
+                case '7':
+                    query = input("Introduce la consulta personalizada: ")
+                    eje.ejecutar_consulta(connection, query)
         connection.close()
         print("Conexión cerrada.")
 

@@ -4,7 +4,7 @@ from psycopg2 import sql
 def conexion_bdd():
     try:
         connection = psycopg2.connect(
-            dbname='postgres',
+            dbname='universidad', #Aca podemos modificar la base de datos a la que queremos acceder
             user='postgres',
             password='admin',
             host='localhost',
